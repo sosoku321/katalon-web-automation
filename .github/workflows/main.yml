@@ -14,5 +14,5 @@ jobs:
       - name: Execute Katalon Tests
         uses: katalon-studio/katalon-studio-github-action@v2
         with:
-          version: 'latest'
+          version: '9.6.0'
           args: '-noSplash -browserType="Chrome" -retry=0 -statusDelay=15 -testSuitePath="Test Suites/TS_RegressionTest" -apiKey=${{ secrets.KATALON_API_KEY }}'
