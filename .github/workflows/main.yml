@@ -15,5 +15,5 @@ jobs:
         uses: katalon-studio/katalon-studio-github-action@v2
         with:
           version: '9.6.0'
-          # Quan trọng: Thêm -projectPath="${{ github.workspace }}" vào đầu args
-          args: '-noSplash -runMode="console" -projectPath="${{ github.workspace }}" -retry=0 -testSuitePath="Test Suites/Regression Test Suite 1" -browserType="Chrome" -apiKey=${{ secrets.KATALON_API_KEY }}'
+          # Quan trọng: Đổi Chrome thành Chrome (headless)
+          args: '-noSplash -runMode="console" -projectPath="${{ github.workspace }}" -retry=0 -testSuitePath="Test Suites/Regression Test Suite 1" -browserType="Chrome (headless)" -apiKey=${{ secrets.KATALON_API_KEY }}'
