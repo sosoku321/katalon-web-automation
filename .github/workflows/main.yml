@@ -2,7 +2,7 @@ name: CI Katalon Demo
 on:
   push:
     branches: [ "master", "main" ]
-  workflow_dispatch: # Cho phép bạn nhấn nút chạy bằng tay khi cần
+  workflow_dispatch:
 
 jobs:
   build:
@@ -11,9 +11,14 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v3
 
+      - name: Install Xvfb
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y xvfb libgconf-2-4
+
       - name: Execute Katalon Tests
         uses: katalon-studio/katalon-studio-github-action@v2
         with:
           version: '9.6.0'
-          # Quan trọng: Đổi Chrome thành Chrome (headless)
-          args: '-noSplash -runMode="console" -projectPath="${{ github.workspace }}" -retry=0 -testSuitePath="Test Suites/Regression Test Suite 1" -browserType="Chrome (headless)" -apiKey=${{ secrets.KATALON_API_KEY }}'
+          # Chúng ta thêm xvfb-run để tạo màn hình ảo giả lập
+          args: 'xvfb-run -a /home/runner/.katalon/9.6.0/Katalon_Studio_Engine_Linux_64-9.6.0/katalonc -noSplash -runMode="console" -projectPath="${{ github.workspace }}" -retry=0 -testSuitePath="Test Suites/Regression Test Suite 1" -browserType="Chrome (headless)" -apiKey=${{ secrets.KATALON_API_KEY }}"'
